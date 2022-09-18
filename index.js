@@ -12,42 +12,76 @@ const sources = [
     },
     {
         name: 'STScI',
-        url: 'https://webbtelescope.org/news/news-releases',
+        url: 'https://webbtelescope.org/news/news-releases?itemsPerPage=100&keyword=Webb&',
         base: 'https://webbtelescope.org'
     }
 ]
 
-const articles = []
+const NasaArticles = []
+const WebbArticles = []
+
 app.listen('8000', () => {
     console.log('Server started on port 8000');
 });
 
 sources.forEach(source => {
+    if (source.name == 'NASA') {
+        getNasaArticles(source);
+    } else if (source.name == 'STScI') {
+        getStsciArticles(source);
+    }
+});
+
+async function getNasaArticles(source) {
     console.log(source.url)
-    axios.get(source.url)
+    await axios.get(source.url)
         .then(response => {
             const html = response.data;
             const $ = cheerio.load(html);
 
             $('a:contains("Webb")').each(function () {
                 const title = $(this).text();
-                if(title.includes("Engineering: Building Webb")){ return false; }
+                if (title.includes("Engineering: Building Webb")) { return false; }
                 let url = $(this).attr('href');
-                if (!url.includes("http")) { url = source.base + url}
+                if (!url.includes("http")) { url = source.base + url }
                 const article = {
                     title,
                     url,
                     source: source.name
                 }
-                articles.push(article);
+                NasaArticles.push(article);
             })
         })
-});
-
-app.get('/'), (req, res) => {
-    res.send('go to /articles')
+}
+async function getStsciArticles(source) {
+    console.log(source.url)
+    await axios.get(source.url)
+        .then(response => {
+            const html = response.data;
+            const $ = cheerio.load(html);
+            $('div .news-listing').find('a:contains("Webb")').each(function () {
+                // $('a:contains("Webb")').each(function () {
+                const title = $(this).text();
+                if (title.includes("Engineering: Building Webb")) { return false; }
+                let url = $(this).attr('href');
+                if (!url.includes("http")) { url = source.base + url }
+                const article = {
+                    title,
+                    url,
+                    source: source.name
+                }
+                WebbArticles.push(article);
+            })
+        })
 }
 
-app.get('/articles', (req, res) => {
-    res.send(articles);
+app.get('/', (req, res) => {
+    res.send('go to /articles')
+});
+
+app.get('/NasaArticles', (req, res) => {
+    res.send(NasaArticles);
+});
+app.get('/WebbArticles', (req, res) => {
+    res.send(WebbArticles);
 });
