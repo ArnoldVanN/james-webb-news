@@ -18,7 +18,6 @@ const sources = [
 ]
 
 const articles = []
-
 app.listen('8000', () => {
     console.log('Server started on port 8000');
 });
@@ -28,15 +27,16 @@ sources.forEach(source => {
     axios.get(source.url)
         .then(response => {
             const html = response.data;
-            console.log(html)
             const $ = cheerio.load(html);
 
             $('a:contains("Webb")').each(function () {
                 const title = $(this).text();
-                const url = $(this).attr('href');
+                if(title.includes("Engineering: Building Webb")){ return false; }
+                let url = $(this).attr('href');
+                if (!url.includes("http")) { url = source.base + url}
                 const article = {
                     title,
-                    url: source.base + url,
+                    url,
                     source: source.name
                 }
                 articles.push(article);
