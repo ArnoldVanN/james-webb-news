@@ -17,8 +17,7 @@ const linkStyle = {
 const IndexPage = () => {
   const [data, setData] = useState([])
   useEffect(() => {
-    // get data from GitHub api
-    axios.get(`http://localhost:8080/NasaArticles`)
+    axios.get(`http://localhost:8080/`)
       .then(response => {
         setData(response.data)
         console.log(response)

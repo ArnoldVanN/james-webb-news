@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
 const app = express();
+
+app.use(cors());
 
 const sources = [
     {
@@ -77,15 +80,14 @@ async function getStsciArticles(source) {
         })
 }
 
+
 app.get('/', (req, res) => {
     res.send(NasaArticles.concat(WebbArticles));
 });
 
 app.get('/NasaArticles', (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*')
     res.send(NasaArticles);
 });
 app.get('/WebbArticles', (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*')
     res.send(WebbArticles);
 });
