@@ -15,12 +15,14 @@ const sources = [
         url: 'https://webbtelescope.org/news/news-releases?itemsPerPage=100&keyword=Webb&',
         base: 'https://webbtelescope.org'
     }
-]
+];
 
-const NasaArticles = []
-const WebbArticles = []
+const NasaArticles = [];
+const WebbArticles = [];
 
-app.listen('8000', () => {
+let id = 0;
+
+app.listen('8080', () => {
     console.log('Server started on port 8000');
 });
 
@@ -45,6 +47,7 @@ async function getNasaArticles(source) {
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
+                    id: id += 1,
                     title,
                     url,
                     source: source.name
@@ -60,12 +63,11 @@ async function getStsciArticles(source) {
             const html = response.data;
             const $ = cheerio.load(html);
             $('div .news-listing').find('a:contains("Webb")').each(function () {
-                // $('a:contains("Webb")').each(function () {
                 const title = $(this).text();
-                if (title.includes("Engineering: Building Webb")) { return false; }
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
+                    id: id += 1,
                     title,
                     url,
                     source: source.name
@@ -76,12 +78,14 @@ async function getStsciArticles(source) {
 }
 
 app.get('/', (req, res) => {
-    res.send('go to /articles')
+    res.send(NasaArticles.concat(WebbArticles));
 });
 
 app.get('/NasaArticles', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*')
     res.send(NasaArticles);
 });
 app.get('/WebbArticles', (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*')
     res.send(WebbArticles);
 });

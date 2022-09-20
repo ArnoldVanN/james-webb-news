@@ -1,4 +1,6 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
+// import * as axios from "axios"
+import axios from "axios"
 import type { HeadFC } from "gatsby"
 
 const pageStyles = {
@@ -12,11 +14,29 @@ const linkStyle = {
   fontSize: 16,
   verticalAlign: "5%",
 }
-
 const IndexPage = () => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    // get data from GitHub api
+    axios.get(`http://localhost:8080/NasaArticles`)
+      .then(response => {
+        setData(response.data)
+        console.log(response)
+      })
+  }, [])
+
   return (
     <main style={pageStyles}>
-      <p>test</p>
+      <h2>Data</h2>
+      {data.map(({ id, title, url, source }) => {
+        return (
+          <div key={id}>
+            <h3>{title}</h3>
+            <p>{url}</p>
+            <p>{source}</p>
+          </div>
+        )
+      })}
     </main>
   )
 }
