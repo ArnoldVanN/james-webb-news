@@ -2169,6 +2169,9 @@ type SiteFieldsEnum =
   | 'polyfill'
   | 'port'
   | 'siteMetadata.description'
+  | 'siteMetadata.menuLinks'
+  | 'siteMetadata.menuLinks.link'
+  | 'siteMetadata.menuLinks.name'
   | 'siteMetadata.siteUrl'
   | 'siteMetadata.title'
   | 'trailingSlash';
@@ -2960,14 +2963,30 @@ type SitePluginSortInput = {
 
 type SiteSiteMetadata = {
   readonly description: Maybe<Scalars['String']>;
+  readonly menuLinks: Maybe<ReadonlyArray<Maybe<SiteSiteMetadataMenuLinks>>>;
   readonly siteUrl: Maybe<Scalars['String']>;
   readonly title: Maybe<Scalars['String']>;
 };
 
 type SiteSiteMetadataFilterInput = {
   readonly description: InputMaybe<StringQueryOperatorInput>;
+  readonly menuLinks: InputMaybe<SiteSiteMetadataMenuLinksFilterListInput>;
   readonly siteUrl: InputMaybe<StringQueryOperatorInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
+};
+
+type SiteSiteMetadataMenuLinks = {
+  readonly link: Maybe<Scalars['String']>;
+  readonly name: Maybe<Scalars['String']>;
+};
+
+type SiteSiteMetadataMenuLinksFilterInput = {
+  readonly link: InputMaybe<StringQueryOperatorInput>;
+  readonly name: InputMaybe<StringQueryOperatorInput>;
+};
+
+type SiteSiteMetadataMenuLinksFilterListInput = {
+  readonly elemMatch: InputMaybe<SiteSiteMetadataMenuLinksFilterInput>;
 };
 
 type SiteSortInput = {
@@ -3026,6 +3045,11 @@ type GatsbyImageSharpFluid_withWebp_noBase64Fragment = { readonly aspectRatio: n
 type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = { readonly tracedSVG: string | null, readonly aspectRatio: number, readonly src: string, readonly srcSet: string, readonly srcWebp: string | null, readonly srcSetWebp: string | null, readonly sizes: string };
 
 type GatsbyImageSharpFluidLimitPresentationSizeFragment = { readonly maxHeight: number, readonly maxWidth: number };
+
+type HeaderQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type HeaderQueryQuery = { readonly site: { readonly siteMetadata: { readonly title: string | null, readonly menuLinks: ReadonlyArray<{ readonly name: string | null, readonly link: string | null } | null> | null } | null } | null };
 
 
 }

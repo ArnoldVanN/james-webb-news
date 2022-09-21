@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
-// import * as axios from "axios"
 import axios from "axios"
 import type { HeadFC } from "gatsby"
+
+import Navbar from "../components/navbar"
 
 const pageStyles = {
   color: "#232129",
@@ -20,12 +21,13 @@ const IndexPage = () => {
     axios.get(`http://localhost:8080/`)
       .then(response => {
         setData(response.data)
-        console.log(response)
       })
   }, [])
 
   return (
     <main style={pageStyles}>
+      <header><Navbar /></header>
+
       <h2>Data</h2>
       {data.map(({ id, title, url, source }) => {
         return (
