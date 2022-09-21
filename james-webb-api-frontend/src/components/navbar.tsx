@@ -1,6 +1,8 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
+import "../styles/components/navbar.scss"
+
 const Navbar = () => {
     const data = useStaticQuery(graphql`
     query HeaderQuery {
@@ -18,25 +20,14 @@ const Navbar = () => {
     const menuItems = data.site.siteMetadata;
 
     return (
-        <React.Fragment>
-            <h1>{menuItems.title}</h1>
+        <div id="navbar-wrapper">
             {menuItems.menuLinks.map(({ name, link }: { name: string, link: string }) => {
                 return (
                     <a key={name} href={link}>{name}</a>
                 )
             })}
-        </React.Fragment>
+        </div>
     )
 }
 
 export default Navbar
-// site(siteMetadata: {menuLinks: {elemMatch: {}}}) {
-//     siteMetadata {
-//       title
-//       menuLinks {
-//         name
-//         link
-//       }
-//     }
-//   }
-// }
