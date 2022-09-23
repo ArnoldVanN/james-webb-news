@@ -1,0 +1,30 @@
+#newsFeed {
+    width: 100%;
+    padding: 20px 60px 0px 60px;
+}
+
+#newsFeed ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+#newsFeed li {
+    clear: both;
+    list-style: none;
+}
+
+#newsFeed ul li {
+    box-sizing: border-box;
+    max-width: 350px;
+    padding: 0 20px 20px 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: column;
+}
+
+li {
+    text-align: -webkit-match-parent;
+}

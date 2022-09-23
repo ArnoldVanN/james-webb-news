@@ -4,6 +4,10 @@ import type { HeadFC } from "gatsby"
 
 // Components
 import Navbar from "../components/navbar"
+import Articles from "../components/articles"
+
+// Images
+import headerImage from "../images/james-webb-stars-header-image.jpg"
 
 //Styles
 import "../styles/global/base.scss"
@@ -21,21 +25,16 @@ const IndexPage = () => {
     <main>
       <header>
         <Navbar />
+        <div id="header-image-wrapper">
+          <img id="header-image" src={headerImage} alt="" />
+          <div className="centered">
+            <h1>James Webb News API</h1>
+          </div>
+        </div>
       </header>
-      <div id="articles">
-        <h2>Data</h2>
-
-        {data.map(({ id, title, url, source }) => {
-          return (
-            <div key={id}>
-              <h3>{title}</h3>
-              <p>{url}</p>
-              <p>{source}</p>
-            </div>
-          )
-        })}
-      </div>
-
+      <section id="newsSection">
+        <Articles />
+      </section>
     </main>
   )
 }

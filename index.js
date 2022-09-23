@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 
 const app = express();
 
+// Set Access-Control-Allow-Origin header to *
 app.use(cors());
 
 const sources = [
@@ -23,7 +24,7 @@ const sources = [
 const NasaArticles = [];
 const WebbArticles = [];
 
-let id = 0;
+let articleId = 0;
 
 app.listen('8080', () => {
     console.log('Server started on port 8000');
@@ -37,6 +38,7 @@ sources.forEach(source => {
     }
 });
 
+// TODO: add way to get image url's for every article
 async function getNasaArticles(source) {
     console.log(source.url)
     await axios.get(source.url)
@@ -50,7 +52,7 @@ async function getNasaArticles(source) {
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
-                    id: id += 1,
+                    id: articleId += 1,
                     title,
                     url,
                     source: source.name
@@ -70,7 +72,7 @@ async function getStsciArticles(source) {
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
-                    id: id += 1,
+                    id: articleId += 1,
                     title,
                     url,
                     source: source.name
