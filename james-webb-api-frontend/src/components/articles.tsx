@@ -15,14 +15,16 @@ const Articles = () => {
     return (
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <div id="newsFeed">
-                <h2>Articles</h2>
+                <h2>Latest News</h2>
                 <ul>
                     {data.map(({ id, title, url, source }) => {
                         return (
                             <li key={id}>
-                                <h3>{title}</h3>
-                                <p>{url}</p>
-                                <p>{source}</p>
+                                <h3>
+                                    <span className="article-info">{source}</span>
+                                    <a className="article-title" href={url}>{title}</a>
+                                </h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
                             </li>
                         )
                     })}
