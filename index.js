@@ -33,8 +33,8 @@ app.listen('8080', () => {
 sources.forEach(source => {
     if (source.name == 'NASA') {
         getNasaArticles(source);
-    } else if (source.name == 'STScI') {
-        getStsciArticles(source);
+        // } else if (source.name == 'STScI') {
+        //     getStsciArticles(source);
     }
 });
 
