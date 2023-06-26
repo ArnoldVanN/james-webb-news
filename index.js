@@ -84,6 +84,7 @@ async function getStsciArticles(source) {
 
 
 app.get('/', (req, res) => {
+    console.log("GET articles")
     res.send(NasaArticles.concat(WebbArticles));
 });
 
