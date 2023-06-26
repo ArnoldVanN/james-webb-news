@@ -27,7 +27,7 @@ const WebbArticles = [];
 let articleId = 0;
 
 app.listen('8080', () => {
-    console.log('Server started on port 8000');
+    console.log('Server started on port 8080');
 });
 
 sources.forEach(source => {

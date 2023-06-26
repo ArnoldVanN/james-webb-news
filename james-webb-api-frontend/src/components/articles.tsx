@@ -15,8 +15,9 @@ const Articles = () => {
     return (
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <div id="newsFeed">
-                <h2>Latest News</h2>
+                <h1>Latest News</h1>
                 <ul>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem modi fugit, aspernatur necessitatibus eligendi veritatis quas fuga quasi dicta doloremque odit molestias omnis. Libero, amet quos? Nisi nobis architecto sed.</p>
                     {data.map(({ id, title, url, source }) => {
                         return (
                             <li key={id}>

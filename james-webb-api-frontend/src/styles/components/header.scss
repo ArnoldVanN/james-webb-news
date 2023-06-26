@@ -7,9 +7,15 @@
 
 #header-image {
     width: 100%;
-    height: 750px;
+    height: 500px;
     object-fit: cover;
     object-position: top;
+}
+
+@media only screen and (max-width: 900px) {
+    #header-image {
+        height: 300px;
+    }
 }
 
 .centered {
