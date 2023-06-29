@@ -52,7 +52,7 @@ async function getNasaArticles(source) {
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
-                    id: articleId += 1,
+                    // id: articleId += 1,
                     title,
                     url,
                     source: source.name
@@ -72,7 +72,7 @@ async function getStsciArticles(source) {
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
-                    id: articleId += 1,
+                    // id: articleId += 1,
                     title,
                     url,
                     source: source.name
@@ -82,8 +82,16 @@ async function getStsciArticles(source) {
         })
 }
 
+let date_ob = new Date();
+let date = ("0" + date_ob.getDate()).slice(-2);
+let year = date_ob.getFullYear();
+let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+let hours = date_ob.getHours();
+let minutes = date_ob.getMinutes();
+let seconds = date_ob.getSeconds();
 
 app.get('/', (req, res) => {
+    console.log("GET articles DATE: " + year + "-" + month + "-" + date + "-" + hours + "h-" + minutes + "m-" + seconds + "s")
     res.send(NasaArticles.concat(WebbArticles));
 });
 
