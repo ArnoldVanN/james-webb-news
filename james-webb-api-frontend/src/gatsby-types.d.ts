@@ -1535,32 +1535,24 @@ type PotraceTurnPolicy =
   | 'white';
 
 type Query = {
-  readonly allArticles: articlesConnection;
   readonly allDirectory: DirectoryConnection;
   readonly allFile: FileConnection;
   readonly allImageSharp: ImageSharpConnection;
+  readonly allInternalArticles: internal__articlesConnection;
   readonly allSite: SiteConnection;
   readonly allSiteBuildMetadata: SiteBuildMetadataConnection;
   readonly allSiteFunction: SiteFunctionConnection;
   readonly allSitePage: SitePageConnection;
   readonly allSitePlugin: SitePluginConnection;
-  readonly articles: Maybe<articles>;
   readonly directory: Maybe<Directory>;
   readonly file: Maybe<File>;
   readonly imageSharp: Maybe<ImageSharp>;
+  readonly internalArticles: Maybe<internal__articles>;
   readonly site: Maybe<Site>;
   readonly siteBuildMetadata: Maybe<SiteBuildMetadata>;
   readonly siteFunction: Maybe<SiteFunction>;
   readonly sitePage: Maybe<SitePage>;
   readonly sitePlugin: Maybe<SitePlugin>;
-};
-
-
-type Query_allArticlesArgs = {
-  filter: InputMaybe<articlesFilterInput>;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<articlesSortInput>;
 };
 
 
@@ -1585,6 +1577,14 @@ type Query_allImageSharpArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<ImageSharpSortInput>;
+};
+
+
+type Query_allInternalArticlesArgs = {
+  filter: InputMaybe<internal__articlesFilterInput>;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+  sort: InputMaybe<internal__articlesSortInput>;
 };
 
 
@@ -1625,18 +1625,6 @@ type Query_allSitePluginArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<SitePluginSortInput>;
-};
-
-
-type Query_articlesArgs = {
-  alternative_id: InputMaybe<IntQueryOperatorInput>;
-  children: InputMaybe<NodeFilterListInput>;
-  id: InputMaybe<StringQueryOperatorInput>;
-  internal: InputMaybe<InternalFilterInput>;
-  parent: InputMaybe<NodeFilterInput>;
-  source: InputMaybe<StringQueryOperatorInput>;
-  title: InputMaybe<StringQueryOperatorInput>;
-  url: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -1733,6 +1721,17 @@ type Query_imageSharpArgs = {
   original: InputMaybe<ImageSharpOriginalFilterInput>;
   parent: InputMaybe<NodeFilterInput>;
   resize: InputMaybe<ImageSharpResizeFilterInput>;
+};
+
+
+type Query_internalArticlesArgs = {
+  children: InputMaybe<NodeFilterListInput>;
+  id: InputMaybe<StringQueryOperatorInput>;
+  internal: InputMaybe<InternalFilterInput>;
+  parent: InputMaybe<NodeFilterInput>;
+  source: InputMaybe<StringQueryOperatorInput>;
+  title: InputMaybe<StringQueryOperatorInput>;
+  url: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -3042,8 +3041,7 @@ type WebPOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
 };
 
-type articles = Node & {
-  readonly alternative_id: Maybe<Scalars['Int']>;
+type internal__articles = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly id: Scalars['ID'];
   readonly internal: Internal;
@@ -3053,53 +3051,52 @@ type articles = Node & {
   readonly url: Maybe<Scalars['String']>;
 };
 
-type articlesConnection = {
+type internal__articlesConnection = {
   readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<articlesEdge>;
-  readonly group: ReadonlyArray<articlesGroupConnection>;
+  readonly edges: ReadonlyArray<internal__articlesEdge>;
+  readonly group: ReadonlyArray<internal__articlesGroupConnection>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<articles>;
+  readonly nodes: ReadonlyArray<internal__articles>;
   readonly pageInfo: PageInfo;
   readonly sum: Maybe<Scalars['Float']>;
   readonly totalCount: Scalars['Int'];
 };
 
 
-type articlesConnection_distinctArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesConnection_distinctArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
 
-type articlesConnection_groupArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesConnection_groupArgs = {
+  field: internal__articlesFieldsEnum;
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
 };
 
 
-type articlesConnection_maxArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesConnection_maxArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
 
-type articlesConnection_minArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesConnection_minArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
 
-type articlesConnection_sumArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesConnection_sumArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
-type articlesEdge = {
-  readonly next: Maybe<articles>;
-  readonly node: articles;
-  readonly previous: Maybe<articles>;
+type internal__articlesEdge = {
+  readonly next: Maybe<internal__articles>;
+  readonly node: internal__articles;
+  readonly previous: Maybe<internal__articles>;
 };
 
-type articlesFieldsEnum =
-  | 'alternative_id'
+type internal__articlesFieldsEnum =
   | 'children'
   | 'children.children'
   | 'children.children.children'
@@ -3197,8 +3194,7 @@ type articlesFieldsEnum =
   | 'title'
   | 'url';
 
-type articlesFilterInput = {
-  readonly alternative_id: InputMaybe<IntQueryOperatorInput>;
+type internal__articlesFilterInput = {
   readonly children: InputMaybe<NodeFilterListInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
   readonly internal: InputMaybe<InternalFilterInput>;
@@ -3208,49 +3204,49 @@ type articlesFilterInput = {
   readonly url: InputMaybe<StringQueryOperatorInput>;
 };
 
-type articlesGroupConnection = {
+type internal__articlesGroupConnection = {
   readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<articlesEdge>;
+  readonly edges: ReadonlyArray<internal__articlesEdge>;
   readonly field: Scalars['String'];
   readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<articlesGroupConnection>;
+  readonly group: ReadonlyArray<internal__articlesGroupConnection>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<articles>;
+  readonly nodes: ReadonlyArray<internal__articles>;
   readonly pageInfo: PageInfo;
   readonly sum: Maybe<Scalars['Float']>;
   readonly totalCount: Scalars['Int'];
 };
 
 
-type articlesGroupConnection_distinctArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesGroupConnection_distinctArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
 
-type articlesGroupConnection_groupArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesGroupConnection_groupArgs = {
+  field: internal__articlesFieldsEnum;
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
 };
 
 
-type articlesGroupConnection_maxArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesGroupConnection_maxArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
 
-type articlesGroupConnection_minArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesGroupConnection_minArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
 
-type articlesGroupConnection_sumArgs = {
-  field: articlesFieldsEnum;
+type internal__articlesGroupConnection_sumArgs = {
+  field: internal__articlesFieldsEnum;
 };
 
-type articlesSortInput = {
-  readonly fields: InputMaybe<ReadonlyArray<InputMaybe<articlesFieldsEnum>>>;
+type internal__articlesSortInput = {
+  readonly fields: InputMaybe<ReadonlyArray<InputMaybe<internal__articlesFieldsEnum>>>;
   readonly order: InputMaybe<ReadonlyArray<InputMaybe<SortOrderEnum>>>;
 };
 
