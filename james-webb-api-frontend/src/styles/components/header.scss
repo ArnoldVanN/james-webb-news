@@ -1,15 +1,25 @@
 #header-image-wrapper {
     position: relative;
-    text-align: center;
-    -webkit-text-stroke: 2px darkgoldenrod;
-    font-size: 2em;
+    height: 500px;
+    margin-bottom: 50px;
 }
 
-#header-image {
+#header-image-wrapper img {
+    position: relative;
     width: 100%;
-    height: 500px;
+    height: 100%;
     object-fit: cover;
-    object-position: top;
+    object-position: 10% 30%;
+}
+
+#header-image-wrapper::after {
+    box-shadow: inset 0 0 6px 6px #000000;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 @media only screen and (max-width: 900px) {
@@ -20,7 +30,10 @@
 
 .centered {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -webkit-text-stroke: 2px darkgoldenrod;
+    font-size: 2em;
+    color: white;
 }

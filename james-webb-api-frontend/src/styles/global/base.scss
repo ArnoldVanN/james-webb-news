@@ -9,7 +9,31 @@ body {
     font-family: sans-serif;
 }
 
+main {
+    background-color: black;
+}
+
 #newsSection {
     max-width: 1200px;
     margin: 0 auto;
+    box-shadow: 0 0 8px 8px black inset;
+    background-color: white;
+    padding-top: 40px;
+}
+
+header::after{
+    position: absolute;
+    content: " ";
+    display: block;
+    width: 110%;
+    height: 110px;
+    left:-5%;
+    bottom:53%;
+    transform:rotate(2deg);
+    z-index: 10;
+    background-color: black;
+    box-shadow: 0 0 6px 4px #000000;
+    // border-style: solid;
+    // border-width: 0 100vw 20px 0;
+    // border-color: transparent rgba(0,0,0,0.4) transparent transparent;
 }
