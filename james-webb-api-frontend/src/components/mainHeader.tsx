@@ -16,6 +16,7 @@ const MainHeader = () => {
         <div className="centered">
           <h1>James Webb News API</h1>
         </div>
+        <div id="slanted-edge"></div>
       </div>
     </header>
   )
