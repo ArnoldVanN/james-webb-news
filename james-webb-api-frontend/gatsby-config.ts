@@ -45,6 +45,18 @@ const config: GatsbyConfig = {
         // using this name. i.e. posts.json
         name: `articles`
       }
+    }, {
+      resolve: `gatsby-omni-font-loader`,
+      options: {
+        enableListener: true,
+        preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
+        web: [
+          {
+            name: `Orbitron`,
+            file: `https://fonts.googleapis.com/css2?family=Orbitron&display=swap`,
+          },
+        ],
+      },
     }]
 };
 

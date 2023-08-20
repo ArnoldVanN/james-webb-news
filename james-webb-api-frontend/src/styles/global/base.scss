@@ -6,10 +6,18 @@
 
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: Orbitron;
+    letter-spacing: 2px;
+}
+
+main {
+    background-color: black;
 }
 
 #newsSection {
     max-width: 1200px;
     margin: 0 auto;
+    box-shadow: 0 0 8px 8px black inset;
+    background-color: white;
+    padding-top: 40px;
 }
