@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const xml2js = require('xml2js');
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.use(cors());
 const sources = [
     {
         name: 'NASA',
-        url: 'https://webb.nasa.gov/content/webbLaunch/news.html',
+        url: 'https://www.nasa.gov/rss/dyn/webb_features.rss',
         base: 'https://webb.nasa.gov'
     },
     {
@@ -21,10 +22,8 @@ const sources = [
     }
 ];
 
-const NasaArticles = [];
+let NasaArticles = [];
 const WebbArticles = [];
-
-let articleId = 0;
 
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 OPR/99.0.0.0"
 
@@ -40,31 +39,35 @@ sources.forEach(source => {
     }
 });
 
-
-// TODO: add way to get image url's for every article
 async function getNasaArticles(source) {
-    await axios.get(source.url, { headers: { 'User-Agent': userAgent } })
-        .then(response => {
-            const html = response.data;
-            const $ = cheerio.load(html);
+    try {
+        const response = await axios.get(source.url, { headers: { 'User-Agent': userAgent } });
+        const xmlString = response.data;
+        const parser = new xml2js.Parser();
 
-            $('a:contains("Webb")').each(function () {
-                const title = $(this).text();
-                if (title.includes("Engineering: Building Webb")) { return false; }
-                let url = $(this).attr('href');
-                if (!url.includes("http")) { url = source.base + url }
-                const article = {
-                    // id: articleId += 1,
-                    title,
-                    url,
-                    source: source.name
-                }
-                NasaArticles.push(article);
-            })
-        }).catch(err => {
-            console.log(err);
+        parser.parseString(xmlString, (err, result) => {
+            if (err) {
+                console.error('Error parsing XML:', err);
+                return;
+            }
+
+            const articles = result.rss.channel[0].item.map(item => ({
+                title: item.title[0],
+                link: item.link[0],
+                description: item.description[0],
+                enclosure: item.enclosure[0].$.url,
+                pubDate: item.pubDate[0],
+                source: item.source[0].$.url
+            }));
+
+            NasaArticles = articles;
         });
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
+
 async function getStsciArticles(source) {
     await axios.get(source.url, { headers: { 'User-Agent': userAgent } })
         .then(response => {
@@ -75,7 +78,6 @@ async function getStsciArticles(source) {
                 let url = $(this).attr('href');
                 if (!url.includes("http")) { url = source.base + url }
                 const article = {
-                    // id: articleId += 1,
                     title,
                     url,
                     source: source.name
@@ -104,11 +106,12 @@ app.get('/', (req, res) => {
     res.send(NasaArticles.concat(WebbArticles));
 });
 
-app.get('/NasaArticles', (req, res) => {
+app.get('/NasaArticles', async (req, res) => {
     console.log("GET NASA articles DATE: " + getCurrentDateTime())
     res.send(NasaArticles);
 });
-app.get('/WebbArticles', (req, res) => {
+
+app.get('/WebbArticles', async (req, res) => {
     console.log("GET STScI articles DATE: " + getCurrentDateTime())
     res.send(WebbArticles);
 });
