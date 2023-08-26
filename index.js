@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const xml2js = require('xml2js');
 
 const app = express();
 
@@ -11,8 +12,7 @@ app.use(cors());
 const sources = [
     {
         name: 'NASA',
-        url: 'https://webb.nasa.gov/content/webbLaunch/news.html',
-        base: 'https://webb.nasa.gov'
+        url: 'https://www.nasa.gov/rss/dyn/webb_features.rss'
     },
     {
         name: 'STScI',
@@ -21,10 +21,8 @@ const sources = [
     }
 ];
 
-const NasaArticles = [];
+let NasaArticles = [];
 const WebbArticles = [];
-
-let articleId = 0;
 
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 OPR/99.0.0.0"
 
@@ -40,50 +38,85 @@ sources.forEach(source => {
     }
 });
 
-
-// TODO: add way to get image url's for every article
 async function getNasaArticles(source) {
-    await axios.get(source.url, { headers: { 'User-Agent': userAgent } })
-        .then(response => {
-            const html = response.data;
-            const $ = cheerio.load(html);
+    try {
+        // Get articles through NASA's RSS feed
+        const response = await axios.get(source.url, { headers: { 'User-Agent': userAgent } });
+        const xmlString = response.data;
+        const parser = new xml2js.Parser();
+        // Parse XML to JS Obj
+        parser.parseString(xmlString, (err, result) => {
+            if (err) {
+                console.error('Error parsing XML:', err);
+                return;
+            }
 
-            $('a:contains("Webb")').each(function () {
-                const title = $(this).text();
-                if (title.includes("Engineering: Building Webb")) { return false; }
-                let url = $(this).attr('href');
-                if (!url.includes("http")) { url = source.base + url }
-                const article = {
-                    // id: articleId += 1,
-                    title,
-                    url,
-                    source: source.name
-                }
-                NasaArticles.push(article);
-            })
-        }).catch(err => {
-            console.log(err);
+            const articles = result.rss.channel[0].item.map(item => ({
+                title: item.title[0],
+                link: item.link[0],
+                description: item.description[0],
+                thumbnail: item.enclosure[0].$.url,
+                pubDate: item.pubDate[0],
+                source: item.source[0].$.url
+            }));
+
+            NasaArticles = articles;
         });
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
+
 async function getStsciArticles(source) {
     await axios.get(source.url, { headers: { 'User-Agent': userAgent } })
         .then(response => {
             const html = response.data;
             const $ = cheerio.load(html);
-            $('div .news-listing').find('a:contains("Webb")').each(function () {
-                const title = $(this).text();
-                let url = $(this).attr('href');
-                if (!url.includes("http")) { url = source.base + url }
+
+            $('div .news-listing').each(function () {
+                const aElement = $(this).find('.card-link');
+
+                let link = aElement.attr('href');
+                if (!link.includes("http")) { link = source.base + link }
+
+                const title = aElement.text();
+                const description = $(this).find('p').text();
+                const thumbnail = $(this).find('img').attr('src');
+                const pubDate = $(this).find('.news-release-date').text();
+
                 const article = {
-                    // id: articleId += 1,
                     title,
-                    url,
-                    source: source.name
+                    link,
+                    description,
+                    thumbnail,
+                    pubDate,
+                    source: source.base
                 }
+
                 WebbArticles.push(article);
             })
+
+            // Get current page, and next pages
+            let pages = $('.filter-pagination__page-links');
+            let currentPage = pages.find('.currentPage').text();
+            let nextPageElements = pages.find('.filter-pagination-link');
+            // Iterate over list of pages and recursively call getStsciArticles() for each next page
+            nextPageElements.each((index, nextPage) => {
+                let nextPageNum = $(nextPage).text();
+                if (currentPage < nextPageNum) {
+                    // Create new source obj with updated URL
+                    let newSource = {
+                        name: sources[1].name,
+                        url: sources[1].base + "/news/news-releases?" + $(nextPage).attr('data-form-data'),
+                        base: sources[1].base
+                    }
+                    getStsciArticles(newSource);
+                }
+            });
         }).catch(err => {
             console.log(err);
+            throw err;
         });
 }
 
@@ -99,16 +132,17 @@ function getCurrentDateTime() {
     return year + "-" + month + "-" + date + "-" + hours + "h-" + minutes + "m-" + seconds + "s";
 }
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     console.log("GET ALL articles DATE: " + getCurrentDateTime())
     res.send(NasaArticles.concat(WebbArticles));
 });
 
-app.get('/NasaArticles', (req, res) => {
+app.get('/NasaArticles', async (req, res) => {
     console.log("GET NASA articles DATE: " + getCurrentDateTime())
     res.send(NasaArticles);
 });
-app.get('/WebbArticles', (req, res) => {
+
+app.get('/WebbArticles', async (req, res) => {
     console.log("GET STScI articles DATE: " + getCurrentDateTime())
     res.send(WebbArticles);
 });
