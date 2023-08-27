@@ -83,7 +83,9 @@ jobs:
       - name: Build with Gatsby
         env:
           PREFIX_PATHS: 'true'
-        run: ${{ steps.detect-package-manager.outputs.manager }} run build
+        run: |
+          pwd
+          ${{ steps.detect-package-manager.outputs.manager }} run build
         working-directory: james-webb-api-frontend
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
