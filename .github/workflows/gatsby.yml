@@ -74,9 +74,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gatsby-build-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: |
+          ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+          cd james-webb-api-frontend
+          ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Start API server
-        run: node index.js
+        run: nohup node index.js > /dev/null 2>&1 &
       - name: Build with Gatsby
         env:
           PREFIX_PATHS: 'true'
