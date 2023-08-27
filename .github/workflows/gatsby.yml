@@ -56,14 +56,14 @@ jobs:
         with:
           node-version: "18"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
-        with:
-          # Automatically inject pathPrefix in your Gatsby configuration file.
-          #
-          # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: gatsby
+      # - name: Setup Pages
+      #   id: pages
+      #   uses: actions/configure-pages@v3
+      #   with:
+      #     # Automatically inject pathPrefix in your Gatsby configuration file.
+      #     #
+      #     # You may remove this line if you want to manage the configuration yourself.
+      #     static_site_generator: gatsby
       - name: Restore cache
         uses: actions/cache@v3
         with:
@@ -83,10 +83,7 @@ jobs:
       - name: Build with Gatsby
         env:
           PREFIX_PATHS: 'true'
-        run: |
-          ${{ steps.detect-package-manager.outputs.manager }} run build --prefix-paths
-          cat gatsby-config.ts
-          ls ./public/static
+        run: ${{ steps.detect-package-manager.outputs.manager }} run build
         working-directory: james-webb-api-frontend
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
