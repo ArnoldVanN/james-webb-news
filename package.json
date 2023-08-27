@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon index.js"
   },
+  "nodemonConfig": {
+    "ignore": ["**/james-webb-api-frontend/**"]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
