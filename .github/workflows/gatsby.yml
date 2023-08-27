@@ -87,7 +87,7 @@ jobs:
           pwd
           ${{ steps.detect-package-manager.outputs.manager }} run build --prefix-paths
           ls
-          ls ./static
+          ls ./public/static
         working-directory: james-webb-api-frontend
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
