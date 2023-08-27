@@ -84,9 +84,8 @@ jobs:
         env:
           PREFIX_PATHS: 'true'
         run: |
-          pwd
           ${{ steps.detect-package-manager.outputs.manager }} run build --prefix-paths
-          ls
+          cat gatsby-config.ts
           ls ./public/static
         working-directory: james-webb-api-frontend
       - name: Upload artifact
