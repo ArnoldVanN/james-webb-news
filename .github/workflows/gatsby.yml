@@ -90,7 +90,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./public
+          path: ./james-webb-api-frontend/public
 
   # Deployment job
   deploy:
