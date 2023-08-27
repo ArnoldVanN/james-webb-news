@@ -1,7 +1,7 @@
 import React from "react"
+import { withPrefix } from "gatsby"
 
 import Navbar from "../components/navbar"
-
 
 import "../styles/components/header.scss"
 
@@ -12,7 +12,7 @@ const MainHeader = () => {
     <header>
       <Navbar />
       <div id="header-image-wrapper">
-        <img src={headerImage} alt="" />
+        <img src={withPrefix(headerImage)} alt="" />
         <div className="centered">
           <h1>James Webb News API</h1>
         </div>
