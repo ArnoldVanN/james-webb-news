@@ -1727,15 +1727,14 @@ type Query_imageSharpArgs = {
 type Query_internalArticlesArgs = {
   children: InputMaybe<NodeFilterListInput>;
   description: InputMaybe<StringQueryOperatorInput>;
-  enclosure: InputMaybe<StringQueryOperatorInput>;
   id: InputMaybe<StringQueryOperatorInput>;
   internal: InputMaybe<InternalFilterInput>;
   link: InputMaybe<StringQueryOperatorInput>;
   parent: InputMaybe<NodeFilterInput>;
   pubDate: InputMaybe<StringQueryOperatorInput>;
   source: InputMaybe<StringQueryOperatorInput>;
+  thumbnail: InputMaybe<StringQueryOperatorInput>;
   title: InputMaybe<StringQueryOperatorInput>;
-  url: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -3048,15 +3047,14 @@ type WebPOptions = {
 type internal__articles = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly description: Maybe<Scalars['String']>;
-  readonly enclosure: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
   readonly internal: Internal;
   readonly link: Maybe<Scalars['String']>;
   readonly parent: Maybe<Node>;
   readonly pubDate: Maybe<Scalars['String']>;
   readonly source: Maybe<Scalars['String']>;
+  readonly thumbnail: Maybe<Scalars['String']>;
   readonly title: Maybe<Scalars['String']>;
-  readonly url: Maybe<Scalars['String']>;
 };
 
 type internal__articlesConnection = {
@@ -3148,7 +3146,6 @@ type internal__articlesFieldsEnum =
   | 'children.parent.parent.children'
   | 'children.parent.parent.id'
   | 'description'
-  | 'enclosure'
   | 'id'
   | 'internal.content'
   | 'internal.contentDigest'
@@ -3203,21 +3200,20 @@ type internal__articlesFieldsEnum =
   | 'parent.parent.parent.id'
   | 'pubDate'
   | 'source'
-  | 'title'
-  | 'url';
+  | 'thumbnail'
+  | 'title';
 
 type internal__articlesFilterInput = {
   readonly children: InputMaybe<NodeFilterListInput>;
   readonly description: InputMaybe<StringQueryOperatorInput>;
-  readonly enclosure: InputMaybe<StringQueryOperatorInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
   readonly internal: InputMaybe<InternalFilterInput>;
   readonly link: InputMaybe<StringQueryOperatorInput>;
   readonly parent: InputMaybe<NodeFilterInput>;
   readonly pubDate: InputMaybe<StringQueryOperatorInput>;
   readonly source: InputMaybe<StringQueryOperatorInput>;
+  readonly thumbnail: InputMaybe<StringQueryOperatorInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
-  readonly url: InputMaybe<StringQueryOperatorInput>;
 };
 
 type internal__articlesGroupConnection = {
