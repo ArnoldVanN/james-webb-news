@@ -89,9 +89,7 @@ const Articles = () => {
 										}
 										return (
 											<li key={article.node.id}>
-												<img
-													src={article.node.thumbnail}
-													alt="An image related to the James Webb Space Telescope"/>
+												<img src={article.node.thumbnail} alt="An image related to the James Webb Space Telescope"/>
 												<div className="article-release-information">
 													<span className="article-release-source">
 														<a href={article.node.sourceUrl} target="_blank">
