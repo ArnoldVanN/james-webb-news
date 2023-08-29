@@ -4,10 +4,14 @@
   "description": "An API which collects news articles about the James Webb telescope",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html}\"",
+    "prepare": "husky install"
   },
   "nodemonConfig": {
-    "ignore": ["**/james-webb-api-frontend/**"]
+    "ignore": [
+      "**/james-webb-api-frontend/**"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +21,10 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "prettier": "^3.0.3",
+    "pretty-quick": "^3.1.3"
   }
 }
