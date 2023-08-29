@@ -5,3 +5,4 @@ james-webb-api-frontend/tsconfig.json
 james-webb-api-frontend/gatsby-config.ts
 **/package-lock.json
 **/package.json
+**/gatsby-types.d.ts
