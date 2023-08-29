@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+/** @format */
+
+import React from "react"
 import type { HeadFC } from "gatsby"
 
 // Components
@@ -12,14 +13,14 @@ import Articles from "../components/articles"
 import "../styles/global/base.scss"
 
 const IndexPage = () => {
-  return (
-    <main>
-      <MainHeader />
-      <section id="newsSection">
-        <Articles />
-      </section>
-    </main>
-  )
+	return (
+		<main>
+			<MainHeader />
+			<section id="newsSection">
+				<Articles />
+			</section>
+		</main>
+	)
 }
 
 export default IndexPage

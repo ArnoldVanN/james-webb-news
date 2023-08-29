@@ -1,7 +1,9 @@
-import React from "react";
-import { graphql, StaticQuery } from "gatsby";
+/** @format */
 
-import "../styles/components/articles.scss";
+import React from "react"
+import { graphql, StaticQuery } from "gatsby"
+
+import "../styles/components/articles.scss"
 
 const Articles = () => {
 	function formatDate(inputDate: string): string {
@@ -18,19 +20,19 @@ const Articles = () => {
 			Oct: "October",
 			Nov: "November",
 			Dec: "December",
-		};
+		}
 
-		const parts = inputDate.split(" ");
-		const day = parts[1];
-		const monthAbbreviation = parts[2];
-		const fullMonthName = months[monthAbbreviation];
-		const year = parts[3];
+		const parts = inputDate.split(" ")
+		const day = parts[1]
+		const monthAbbreviation = parts[2]
+		const fullMonthName = months[monthAbbreviation]
+		const year = parts[3]
 
 		if (fullMonthName) {
-			const formattedDate = `${fullMonthName} ${day}, ${year}`;
-			return formattedDate;
+			const formattedDate = `${fullMonthName} ${day}, ${year}`
+			return formattedDate
 		} else {
-			return "Invalid month abbreviation.";
+			return "Invalid month abbreviation."
 		}
 	}
 
@@ -68,28 +70,31 @@ const Articles = () => {
 								.map(
 									(article: {
 										node: {
-											id: React.Key | null | undefined;
-											title: string;
-											link: string;
-											description: string;
-											thumbnail: string;
-											pubDate: string;
-											source: string;
-											sourceUrl: string;
-										};
+											id: React.Key | null | undefined
+											title: string
+											link: string
+											description: string
+											thumbnail: string
+											pubDate: string
+											source: string
+											sourceUrl: string
+										}
 									}) => {
-										article.node.sourceUrl = article.node.source;
+										article.node.sourceUrl = article.node.source
 										if (article.node.source.includes("nasa")) {
-											article.node.source = "NASA";
-											article.node.sourceUrl = "https://webb.nasa.gov/content/webbLaunch/news.html";
+											article.node.source = "NASA"
+											article.node.sourceUrl = "https://webb.nasa.gov/content/webbLaunch/news.html"
 											// Reformatting pubDate
-											article.node.pubDate = formatDate(article.node.pubDate);
+											article.node.pubDate = formatDate(article.node.pubDate)
 										} else {
-											article.node.source = "STScI";
+											article.node.source = "STScI"
 										}
 										return (
 											<li key={article.node.id}>
-												<img src={article.node.thumbnail} alt="An image related to the James Webb Space Telescope"/>
+												<img
+													src={article.node.thumbnail}
+													alt="An image related to the James Webb Space Telescope"
+												/>
 												<div className="article-release-information">
 													<span className="article-release-source">
 														<a href={article.node.sourceUrl} target="_blank">
@@ -105,7 +110,7 @@ const Articles = () => {
 												</h3>
 												<p>{article.node.description}</p>
 											</li>
-										);
+										)
 									}
 								)}
 						</ul>
@@ -113,7 +118,7 @@ const Articles = () => {
 				</div>
 			)}
 		/>
-	);
-};
+	)
+}
 
-export default Articles;
+export default Articles
