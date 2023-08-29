@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, withPrefix } from "gatsby"
 
 import "../styles/components/navbar.scss"
 
@@ -23,7 +23,7 @@ const Navbar = () => {
         <div id="navbar-wrapper">
             {menuItems.menuLinks.map(({ name, link }: { name: string, link: string }) => {
                 return (
-                    <a key={name} href={link}>{name}</a>
+                    <a key={name} href={withPrefix(link)}>{name}</a>
                 )
             })}
         </div>
