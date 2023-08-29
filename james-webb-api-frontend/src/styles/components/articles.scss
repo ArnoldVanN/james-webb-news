@@ -21,7 +21,8 @@
 #newsFeed li {
     clear: both;
     list-style: none;
-    flex: 1 0 49%;
+    flex: 1 0 30%;
+    max-width: 50%;
 }
 
 @media only screen and (max-width: 700px) {
@@ -54,8 +55,19 @@
     margin-bottom: 1.2em;
 }
 
-.article-title {
-    font-size: large;
+.article-thumbnail {
+    margin: auto;
+    max-width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#newsFeed img {
+    object-fit: cover;
+    max-width: 100%;
+    outline: 3px solid darkgoldenrod;
+    border-radius: 5%;
+    margin-bottom: 5px;
 }
 
 .article-release-information {
@@ -66,3 +78,8 @@
     content: "|";
     margin: 0 5px 0 5px;
 }
+
+.article-title {
+    font-size: large;
+}
+
