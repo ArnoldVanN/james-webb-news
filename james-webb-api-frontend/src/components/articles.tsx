@@ -4,24 +4,6 @@ import { graphql, StaticQuery } from "gatsby";
 import "../styles/components/articles.scss";
 
 const Articles = () => {
-//   const data = useStaticQuery(graphql`
-//     query {
-//       allInternalArticles {
-//         edges {
-//           node {
-//             id
-//             title
-//             link
-//             description
-//             thumbnail
-//             pubDate
-//             source
-//           }
-//         }
-//       }
-//     }
-//   `);
-  
   function formatDate(inputDate: string): string {
     const months: Record<string, string> = {
       Jan: "January",
@@ -108,6 +90,7 @@ const Articles = () => {
                   }
                   return (
                     <li key={article.node.id}>
+                      <img src={article.node.thumbnail} alt="An image related to the James Webb Space Telescope" />
                       <div className="article-release-information">
                         <span className="article-release-source">
                           <a href={article.node.sourceUrl} target="_blank">
@@ -124,7 +107,7 @@ const Articles = () => {
                         </a>
                       </h3>
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                        {article.node.description}
                       </p>
                     </li>
                   );
