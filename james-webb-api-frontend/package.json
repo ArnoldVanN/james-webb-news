@@ -14,8 +14,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html}\"",
-    "prepare": "husky install"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html}\""
   },
   "dependencies": {
     "axios": "^0.27.2",
