@@ -16,9 +16,7 @@ const IndexPage = () => {
 	return (
 		<main>
 			<MainHeader />
-			<section id="newsSection">
-				<Articles />
-			</section>
+			<Articles />
 		</main>
 	)
 }
