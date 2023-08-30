@@ -10,11 +10,11 @@ Then `cd` into the front end directory (james-webb-api-frontend) and run `npm in
 
 ## Project Features
 ### Back End
-The back end is pretty simple. It used an Express API from which the front end can pull articles. Currently articles are gathered from NASA's RSS feed and scraped from STScI's JWST news site.\
+The back end is pretty simple. It used an Express API from which the front end can pull articles. Currently articles are gathered from NASA's RSS feed and scraped from STScI's JWST news site.
 ### Front End
 I chose Gatsby as a front end framework because I found the use of GraphQL interesting and wanted to learn more about it. Currently the articles gathered from the API get stored in GraphQL through the use of a Gatsby plugin.
-This project also makes use of the Gatsby Image plugin to take care of image lazy loading and loading time optimization.\
+This project also makes use of the Gatsby Image plugin to take care of image lazy loading and loading time optimization.
 ### Project Code Formatting
-Upon running `npm install`, npm also runs a few other scripts if available. In my case it will run the `prepare` script which contains `husky install`. This will enable Git Hooks and makes use of the pre-commit hook to run the Prettier code formatter.\
+Upon running `npm install`, npm also runs a few other scripts if available. In my case it will run the `prepare` script which contains `husky install`. This will enable Git Hooks and makes use of the pre-commit hook to run the Prettier code formatter.
 ### CI/CD
 Currently this project is hosted on GitHub Pages. Every time main recieves a push the GitHub Action will be triggered which builds the project, configures the Page and deploys it.
