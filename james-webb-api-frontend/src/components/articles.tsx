@@ -1,7 +1,8 @@
 /** @format */
 
 import React from "react"
-import { graphql, StaticQuery } from "gatsby"
+import { graphql, StaticQuery, withPrefix } from "gatsby"
+import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
 
 import "../styles/components/articles.scss"
 
@@ -56,7 +57,8 @@ const Articles = () => {
 				}
 			`}
 			render={(data) => (
-				<div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+				<section id="newsSection">
+					{/* Add background image here */}
 					<div id="newsFeed">
 						<h1>Latest News</h1>
 						<ul>
@@ -115,7 +117,7 @@ const Articles = () => {
 								)}
 						</ul>
 					</div>
-				</div>
+				</section>
 			)}
 		/>
 	)
