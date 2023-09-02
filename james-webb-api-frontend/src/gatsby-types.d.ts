@@ -462,6 +462,7 @@ type File = Node & {
   readonly size: Scalars['Int'];
   readonly sourceInstanceName: Scalars['String'];
   readonly uid: Scalars['Int'];
+  readonly url: Maybe<Scalars['String']>;
 };
 
 
@@ -839,7 +840,8 @@ type FileFieldsEnum =
   | 'root'
   | 'size'
   | 'sourceInstanceName'
-  | 'uid';
+  | 'uid'
+  | 'url';
 
 type FileFilterInput = {
   readonly absolutePath: InputMaybe<StringQueryOperatorInput>;
@@ -882,6 +884,7 @@ type FileFilterInput = {
   readonly size: InputMaybe<IntQueryOperatorInput>;
   readonly sourceInstanceName: InputMaybe<StringQueryOperatorInput>;
   readonly uid: InputMaybe<IntQueryOperatorInput>;
+  readonly url: InputMaybe<StringQueryOperatorInput>;
 };
 
 type FileGroupConnection = {
@@ -1708,6 +1711,7 @@ type Query_fileArgs = {
   size: InputMaybe<IntQueryOperatorInput>;
   sourceInstanceName: InputMaybe<StringQueryOperatorInput>;
   uid: InputMaybe<IntQueryOperatorInput>;
+  url: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -1727,6 +1731,7 @@ type Query_imageSharpArgs = {
 type Query_internalArticlesArgs = {
   children: InputMaybe<NodeFilterListInput>;
   description: InputMaybe<StringQueryOperatorInput>;
+  fields: InputMaybe<internal__articlesFieldsFilterInput>;
   id: InputMaybe<StringQueryOperatorInput>;
   internal: InputMaybe<InternalFilterInput>;
   link: InputMaybe<StringQueryOperatorInput>;
@@ -1734,6 +1739,7 @@ type Query_internalArticlesArgs = {
   pubDate: InputMaybe<StringQueryOperatorInput>;
   source: InputMaybe<StringQueryOperatorInput>;
   thumbnail: InputMaybe<StringQueryOperatorInput>;
+  thumbnailLocalFile: InputMaybe<FileFilterInput>;
   title: InputMaybe<StringQueryOperatorInput>;
 };
 
@@ -3047,6 +3053,7 @@ type WebPOptions = {
 type internal__articles = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly description: Maybe<Scalars['String']>;
+  readonly fields: Maybe<internal__articlesFields>;
   readonly id: Scalars['ID'];
   readonly internal: Internal;
   readonly link: Maybe<Scalars['String']>;
@@ -3054,6 +3061,7 @@ type internal__articles = Node & {
   readonly pubDate: Maybe<Scalars['String']>;
   readonly source: Maybe<Scalars['String']>;
   readonly thumbnail: Maybe<Scalars['String']>;
+  readonly thumbnailLocalFile: Maybe<File>;
   readonly title: Maybe<Scalars['String']>;
 };
 
@@ -3102,6 +3110,10 @@ type internal__articlesEdge = {
   readonly previous: Maybe<internal__articles>;
 };
 
+type internal__articlesFields = {
+  readonly localThumbnailFile: Maybe<Scalars['String']>;
+};
+
 type internal__articlesFieldsEnum =
   | 'children'
   | 'children.children'
@@ -3146,6 +3158,7 @@ type internal__articlesFieldsEnum =
   | 'children.parent.parent.children'
   | 'children.parent.parent.id'
   | 'description'
+  | 'fields.localThumbnailFile'
   | 'id'
   | 'internal.content'
   | 'internal.contentDigest'
@@ -3201,11 +3214,187 @@ type internal__articlesFieldsEnum =
   | 'pubDate'
   | 'source'
   | 'thumbnail'
+  | 'thumbnailLocalFile.absolutePath'
+  | 'thumbnailLocalFile.accessTime'
+  | 'thumbnailLocalFile.atime'
+  | 'thumbnailLocalFile.atimeMs'
+  | 'thumbnailLocalFile.base'
+  | 'thumbnailLocalFile.birthTime'
+  | 'thumbnailLocalFile.birthtime'
+  | 'thumbnailLocalFile.birthtimeMs'
+  | 'thumbnailLocalFile.blksize'
+  | 'thumbnailLocalFile.blocks'
+  | 'thumbnailLocalFile.changeTime'
+  | 'thumbnailLocalFile.childImageSharp.children'
+  | 'thumbnailLocalFile.childImageSharp.children.children'
+  | 'thumbnailLocalFile.childImageSharp.children.id'
+  | 'thumbnailLocalFile.childImageSharp.fixed.aspectRatio'
+  | 'thumbnailLocalFile.childImageSharp.fixed.base64'
+  | 'thumbnailLocalFile.childImageSharp.fixed.height'
+  | 'thumbnailLocalFile.childImageSharp.fixed.originalName'
+  | 'thumbnailLocalFile.childImageSharp.fixed.src'
+  | 'thumbnailLocalFile.childImageSharp.fixed.srcSet'
+  | 'thumbnailLocalFile.childImageSharp.fixed.srcSetWebp'
+  | 'thumbnailLocalFile.childImageSharp.fixed.srcWebp'
+  | 'thumbnailLocalFile.childImageSharp.fixed.tracedSVG'
+  | 'thumbnailLocalFile.childImageSharp.fixed.width'
+  | 'thumbnailLocalFile.childImageSharp.fluid.aspectRatio'
+  | 'thumbnailLocalFile.childImageSharp.fluid.base64'
+  | 'thumbnailLocalFile.childImageSharp.fluid.originalImg'
+  | 'thumbnailLocalFile.childImageSharp.fluid.originalName'
+  | 'thumbnailLocalFile.childImageSharp.fluid.presentationHeight'
+  | 'thumbnailLocalFile.childImageSharp.fluid.presentationWidth'
+  | 'thumbnailLocalFile.childImageSharp.fluid.sizes'
+  | 'thumbnailLocalFile.childImageSharp.fluid.src'
+  | 'thumbnailLocalFile.childImageSharp.fluid.srcSet'
+  | 'thumbnailLocalFile.childImageSharp.fluid.srcSetWebp'
+  | 'thumbnailLocalFile.childImageSharp.fluid.srcWebp'
+  | 'thumbnailLocalFile.childImageSharp.fluid.tracedSVG'
+  | 'thumbnailLocalFile.childImageSharp.gatsbyImageData'
+  | 'thumbnailLocalFile.childImageSharp.id'
+  | 'thumbnailLocalFile.childImageSharp.internal.content'
+  | 'thumbnailLocalFile.childImageSharp.internal.contentDigest'
+  | 'thumbnailLocalFile.childImageSharp.internal.contentFilePath'
+  | 'thumbnailLocalFile.childImageSharp.internal.description'
+  | 'thumbnailLocalFile.childImageSharp.internal.fieldOwners'
+  | 'thumbnailLocalFile.childImageSharp.internal.ignoreType'
+  | 'thumbnailLocalFile.childImageSharp.internal.mediaType'
+  | 'thumbnailLocalFile.childImageSharp.internal.owner'
+  | 'thumbnailLocalFile.childImageSharp.internal.type'
+  | 'thumbnailLocalFile.childImageSharp.original.height'
+  | 'thumbnailLocalFile.childImageSharp.original.src'
+  | 'thumbnailLocalFile.childImageSharp.original.width'
+  | 'thumbnailLocalFile.childImageSharp.parent.children'
+  | 'thumbnailLocalFile.childImageSharp.parent.id'
+  | 'thumbnailLocalFile.childImageSharp.resize.aspectRatio'
+  | 'thumbnailLocalFile.childImageSharp.resize.height'
+  | 'thumbnailLocalFile.childImageSharp.resize.originalName'
+  | 'thumbnailLocalFile.childImageSharp.resize.src'
+  | 'thumbnailLocalFile.childImageSharp.resize.tracedSVG'
+  | 'thumbnailLocalFile.childImageSharp.resize.width'
+  | 'thumbnailLocalFile.children'
+  | 'thumbnailLocalFile.childrenImageSharp'
+  | 'thumbnailLocalFile.childrenImageSharp.children'
+  | 'thumbnailLocalFile.childrenImageSharp.children.children'
+  | 'thumbnailLocalFile.childrenImageSharp.children.id'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.aspectRatio'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.base64'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.height'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.originalName'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.src'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.srcSet'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.srcSetWebp'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.srcWebp'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.tracedSVG'
+  | 'thumbnailLocalFile.childrenImageSharp.fixed.width'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.aspectRatio'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.base64'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.originalImg'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.originalName'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.presentationHeight'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.presentationWidth'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.sizes'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.src'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.srcSet'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.srcSetWebp'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.srcWebp'
+  | 'thumbnailLocalFile.childrenImageSharp.fluid.tracedSVG'
+  | 'thumbnailLocalFile.childrenImageSharp.gatsbyImageData'
+  | 'thumbnailLocalFile.childrenImageSharp.id'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.content'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.contentDigest'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.contentFilePath'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.description'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.fieldOwners'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.ignoreType'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.mediaType'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.owner'
+  | 'thumbnailLocalFile.childrenImageSharp.internal.type'
+  | 'thumbnailLocalFile.childrenImageSharp.original.height'
+  | 'thumbnailLocalFile.childrenImageSharp.original.src'
+  | 'thumbnailLocalFile.childrenImageSharp.original.width'
+  | 'thumbnailLocalFile.childrenImageSharp.parent.children'
+  | 'thumbnailLocalFile.childrenImageSharp.parent.id'
+  | 'thumbnailLocalFile.childrenImageSharp.resize.aspectRatio'
+  | 'thumbnailLocalFile.childrenImageSharp.resize.height'
+  | 'thumbnailLocalFile.childrenImageSharp.resize.originalName'
+  | 'thumbnailLocalFile.childrenImageSharp.resize.src'
+  | 'thumbnailLocalFile.childrenImageSharp.resize.tracedSVG'
+  | 'thumbnailLocalFile.childrenImageSharp.resize.width'
+  | 'thumbnailLocalFile.children.children'
+  | 'thumbnailLocalFile.children.children.children'
+  | 'thumbnailLocalFile.children.children.id'
+  | 'thumbnailLocalFile.children.id'
+  | 'thumbnailLocalFile.children.internal.content'
+  | 'thumbnailLocalFile.children.internal.contentDigest'
+  | 'thumbnailLocalFile.children.internal.contentFilePath'
+  | 'thumbnailLocalFile.children.internal.description'
+  | 'thumbnailLocalFile.children.internal.fieldOwners'
+  | 'thumbnailLocalFile.children.internal.ignoreType'
+  | 'thumbnailLocalFile.children.internal.mediaType'
+  | 'thumbnailLocalFile.children.internal.owner'
+  | 'thumbnailLocalFile.children.internal.type'
+  | 'thumbnailLocalFile.children.parent.children'
+  | 'thumbnailLocalFile.children.parent.id'
+  | 'thumbnailLocalFile.ctime'
+  | 'thumbnailLocalFile.ctimeMs'
+  | 'thumbnailLocalFile.dev'
+  | 'thumbnailLocalFile.dir'
+  | 'thumbnailLocalFile.ext'
+  | 'thumbnailLocalFile.extension'
+  | 'thumbnailLocalFile.gid'
+  | 'thumbnailLocalFile.id'
+  | 'thumbnailLocalFile.ino'
+  | 'thumbnailLocalFile.internal.content'
+  | 'thumbnailLocalFile.internal.contentDigest'
+  | 'thumbnailLocalFile.internal.contentFilePath'
+  | 'thumbnailLocalFile.internal.description'
+  | 'thumbnailLocalFile.internal.fieldOwners'
+  | 'thumbnailLocalFile.internal.ignoreType'
+  | 'thumbnailLocalFile.internal.mediaType'
+  | 'thumbnailLocalFile.internal.owner'
+  | 'thumbnailLocalFile.internal.type'
+  | 'thumbnailLocalFile.mode'
+  | 'thumbnailLocalFile.modifiedTime'
+  | 'thumbnailLocalFile.mtime'
+  | 'thumbnailLocalFile.mtimeMs'
+  | 'thumbnailLocalFile.name'
+  | 'thumbnailLocalFile.nlink'
+  | 'thumbnailLocalFile.parent.children'
+  | 'thumbnailLocalFile.parent.children.children'
+  | 'thumbnailLocalFile.parent.children.id'
+  | 'thumbnailLocalFile.parent.id'
+  | 'thumbnailLocalFile.parent.internal.content'
+  | 'thumbnailLocalFile.parent.internal.contentDigest'
+  | 'thumbnailLocalFile.parent.internal.contentFilePath'
+  | 'thumbnailLocalFile.parent.internal.description'
+  | 'thumbnailLocalFile.parent.internal.fieldOwners'
+  | 'thumbnailLocalFile.parent.internal.ignoreType'
+  | 'thumbnailLocalFile.parent.internal.mediaType'
+  | 'thumbnailLocalFile.parent.internal.owner'
+  | 'thumbnailLocalFile.parent.internal.type'
+  | 'thumbnailLocalFile.parent.parent.children'
+  | 'thumbnailLocalFile.parent.parent.id'
+  | 'thumbnailLocalFile.prettySize'
+  | 'thumbnailLocalFile.publicURL'
+  | 'thumbnailLocalFile.rdev'
+  | 'thumbnailLocalFile.relativeDirectory'
+  | 'thumbnailLocalFile.relativePath'
+  | 'thumbnailLocalFile.root'
+  | 'thumbnailLocalFile.size'
+  | 'thumbnailLocalFile.sourceInstanceName'
+  | 'thumbnailLocalFile.uid'
+  | 'thumbnailLocalFile.url'
   | 'title';
+
+type internal__articlesFieldsFilterInput = {
+  readonly localThumbnailFile: InputMaybe<StringQueryOperatorInput>;
+};
 
 type internal__articlesFilterInput = {
   readonly children: InputMaybe<NodeFilterListInput>;
   readonly description: InputMaybe<StringQueryOperatorInput>;
+  readonly fields: InputMaybe<internal__articlesFieldsFilterInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
   readonly internal: InputMaybe<InternalFilterInput>;
   readonly link: InputMaybe<StringQueryOperatorInput>;
@@ -3213,6 +3402,7 @@ type internal__articlesFilterInput = {
   readonly pubDate: InputMaybe<StringQueryOperatorInput>;
   readonly source: InputMaybe<StringQueryOperatorInput>;
   readonly thumbnail: InputMaybe<StringQueryOperatorInput>;
+  readonly thumbnailLocalFile: InputMaybe<FileFilterInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
 };
 
