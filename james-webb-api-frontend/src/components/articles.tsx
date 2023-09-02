@@ -1,8 +1,8 @@
 /** @format */
 
 import React from "react"
-import { graphql, StaticQuery, withPrefix } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
+import { graphql, StaticQuery } from "gatsby"
+import { GatsbyImage, getImage, IGatsbyImageData } from "gatsby-plugin-image"
 
 import "../styles/components/articles.scss"
 
@@ -51,6 +51,12 @@ const Articles = () => {
 								thumbnail
 								pubDate
 								source
+								thumbnailLocalFile {
+									id
+									childImageSharp {
+									  	gatsbyImageData(placeholder: BLURRED)
+									}
+								  }
 							}
 						}
 					}
@@ -80,6 +86,12 @@ const Articles = () => {
 											pubDate: string
 											source: string
 											sourceUrl: string
+											thumbnailLocalFile: {
+												id: string;
+												childImageSharp: {
+												  gatsbyImageData: IGatsbyImageData; // Define the correct type for gatsbyImageData
+												};
+											};
 										}
 									}) => {
 										article.node.sourceUrl = article.node.source
@@ -91,12 +103,10 @@ const Articles = () => {
 										} else {
 											article.node.source = "STScI"
 										}
+										const image = getImage(article.node.thumbnailLocalFile)!
 										return (
 											<li key={article.node.id}>
-												<img
-													src={article.node.thumbnail}
-													alt="An image related to the James Webb Space Telescope"
-												/>
+												<GatsbyImage image={image} alt="An image related to the James Webb Space Telescope" loading="lazy"/>
 												<div className="article-release-information">
 													<span className="article-release-source">
 														<a href={article.node.sourceUrl} target="_blank">
