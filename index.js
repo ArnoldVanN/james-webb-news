@@ -88,7 +88,7 @@ async function getStsciArticles(source) {
 
 				const title = aElement.text()
 				const description = $(this).find("p").text()
-				const thumbnail = $(this).find("img").attr("src")
+				const thumbnail = ('https:' + $(this).find("img").attr("src"))
 				const pubDate = $(this).find(".news-release-date").text()
 
 				const article = {

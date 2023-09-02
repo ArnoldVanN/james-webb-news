@@ -2,7 +2,7 @@
 
 import React from "react"
 import { graphql, StaticQuery, withPrefix } from "gatsby"
-import { GatsbyImage, StaticImage } from "gatsby-plugin-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import "../styles/components/articles.scss"
 
