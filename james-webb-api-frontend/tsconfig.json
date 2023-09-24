@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     // add Bun type definitions
-    "types": [
-      "bun-types"
-    ],
+    // "types": [
+    //   "bun-types"
+    // ],
     // enable latest features
     "lib": [
       "dom",
@@ -18,8 +18,7 @@
     "moduleDetection": "force",
     // if TS 4.x or earlier
     // "moduleResolution": "nodenext",
-    "jsx": "react-jsx", // support JSX
-    "allowJs": true, // allow importing `.js` from `.ts`
+    "jsx": "react", // support JSX
     "esModuleInterop": true, // allow default imports for CommonJS modules
     // best practices
     "strict": true,
