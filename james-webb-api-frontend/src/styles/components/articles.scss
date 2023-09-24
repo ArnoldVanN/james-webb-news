@@ -1,3 +1,7 @@
+.centered-div {
+    text-align: center;
+}
+
 #newsFeed {
     max-width: 1200px;
     margin: 0 auto;
@@ -13,37 +17,33 @@
 #newsFeed ul {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    flex-flow: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     padding: 0;
 }
 
 #newsFeed li {
     clear: both;
     list-style: none;
-    flex: 1 0 30%;
-    max-width: 50%;
-}
-
-@media only screen and (max-width: 700px) {
-    #newsFeed li {
-        clear: both;
-        list-style: none;
-        flex: 1 0 49%;
-    }
-
-    .article-title {
-        font-size: medium;
-    }
-}
-
-#newsFeed ul li {
+    flex: 1 0 100%;
     box-sizing: border-box;
     padding: 0 20px 20px 20px;
-    display: flex;
-    justify-content: flex-start;
-    flex-flow: column;
+}
+
+.article-title, .article-description, .centered-div {
+    font-size: small;
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+@media only screen and (min-width: 1200px) {
+    #newsFeed li {
+        flex: 1 0 30%;
+        max-width: 30%;
+    }
+    .article-title, .article-description, .centered-div {
+        font-size: initial;
+        text-align: center;
+    }
 }
 
 #newsFeed a {
@@ -72,13 +72,10 @@
 
 .article-release-information {
     font-size: 80%;
+    text-align: center;
 }
 
 .article-release-source::after {
     content: "|";
     margin: 0 5px 0 5px;
-}
-
-.article-title {
-    font-size: large;
 }

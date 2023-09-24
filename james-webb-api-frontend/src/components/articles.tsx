@@ -54,9 +54,9 @@ const Articles = () => {
 								thumbnailLocalFile {
 									id
 									childImageSharp {
-									  	gatsbyImageData(placeholder: BLURRED)
+										gatsbyImageData(placeholder: BLURRED)
 									}
-								  }
+								}
 							}
 						}
 					}
@@ -87,11 +87,11 @@ const Articles = () => {
 											source: string
 											sourceUrl: string
 											thumbnailLocalFile: {
-												id: string;
+												id: string
 												childImageSharp: {
-												  gatsbyImageData: IGatsbyImageData; // Define the correct type for gatsbyImageData
-												};
-											};
+													gatsbyImageData: IGatsbyImageData // Define the correct type for gatsbyImageData
+												}
+											}
 										}
 									}) => {
 										article.node.sourceUrl = article.node.source
@@ -106,7 +106,13 @@ const Articles = () => {
 										const image = getImage(article.node.thumbnailLocalFile)!
 										return (
 											<li key={article.node.id}>
-												<GatsbyImage image={image} alt="An image related to the James Webb Space Telescope" loading="lazy"/>
+												<div className="centered-div">
+													<GatsbyImage
+														image={image}
+														alt="An image related to the James Webb Space Telescope"
+														loading="lazy"
+													/>
+												</div>
 												<div className="article-release-information">
 													<span className="article-release-source">
 														<a href={article.node.sourceUrl} target="_blank">
@@ -115,12 +121,12 @@ const Articles = () => {
 													</span>
 													<span className="article-release-date">{article.node.pubDate}</span>
 												</div>
-												<h3>
+												<h3 className="centered-div">
 													<a className="article-title" href={article.node.link} target="_blank">
 														{article.node.title}
 													</a>
 												</h3>
-												<p>{article.node.description}</p>
+												<p className="article-description">{article.node.description}</p>
 											</li>
 										)
 									}
