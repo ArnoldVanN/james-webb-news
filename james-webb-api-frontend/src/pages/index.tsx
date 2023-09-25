@@ -13,12 +13,12 @@ import Articles from "../components/articles"
 import "../styles/global/base.scss"
 
 const IndexPage = () => {
-	return (
-		<main>
-			<MainHeader />
-			<Articles />
-		</main>
-	)
+  return (
+    <main>
+      <MainHeader />
+      <Articles />
+    </main>
+  )
 }
 
 export default IndexPage
