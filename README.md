@@ -1,3 +1,5 @@
+> **_NOTE:_** I have decided to stop working on this project due to large changes in data structure from the data sources. Though a static functional WIP version is available on the GitHub IO Page.
+
 # James Webb news API
 This is a passion project consisting of an Express API and Gatsby Front-end.
 It makes use of RSS feeds and web scraping to gather articles about the James Webb Space Telescope.
